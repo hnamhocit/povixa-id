@@ -1,26 +1,195 @@
+/* packages/design-tokens/src/globals.css */
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === SHADCN CORE TOKENS (LIGHT MODE - Tinh chỉnh ánh tím nhẹ ở tầng nền phụ) === */
+  --background: oklch(0.99 0.003 290);
+  --foreground: oklch(0.145 0.02 290);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.02 290);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.02 290);
+
+  /* Primary: Povixa Electric Violet */
+  --primary: oklch(0.55 0.24 292);
+  --primary-foreground: oklch(0.985 0.005 290);
+
+  --secondary: oklch(0.96 0.015 290);
+  --secondary-foreground: oklch(0.22 0.04 290);
+
+  --muted: oklch(0.96 0.01 290);
+  --muted-foreground: oklch(0.52 0.03 290);
+
+  --accent: oklch(0.95 0.025 292);
+  --accent-foreground: oklch(0.25 0.06 292);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(0.91 0.015 290);
+  --input: oklch(0.91 0.015 290);
+  --ring: oklch(0.55 0.24 292);
+
+  /* Charts: Phổ màu từ Violet -> Cyan -> Emerald -> Amber -> Rose */
+  --chart-1: oklch(0.55 0.24 292);
+  --chart-2: oklch(0.68 0.16 230);
+  --chart-3: oklch(0.70 0.17 165);
+  --chart-4: oklch(0.78 0.16 80);
+  --chart-5: oklch(0.62 0.22 15);
+
+  --radius: 0.625rem;
+
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.98 0.006 290);
+  --sidebar-foreground: oklch(0.145 0.02 290);
+  --sidebar-primary: oklch(0.55 0.24 292);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.95 0.02 292);
+  --sidebar-accent-foreground: oklch(0.22 0.04 290);
+  --sidebar-border: oklch(0.91 0.015 290);
+  --sidebar-ring: oklch(0.55 0.24 292);
+
+  /* === POVIXA EXTENDED TOKENS (Semantic Status & Glass/Auth Specific) === */
+  --success: oklch(0.65 0.18 155);
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.75 0.17 75);
+  --warning-foreground: oklch(0.15 0.02 75);
+  --info: oklch(0.68 0.16 230);
+  --info-foreground: oklch(0.985 0 0);
+
+  --surface-glass: oklch(1 0 0 / 0.72);
+  --border-glow: oklch(0.55 0.24 292 / 0.35);
+  --glow-primary: oklch(0.55 0.24 292 / 0.2);
 }
 
+.dark {
+  /* === SHADCN CORE TOKENS (DARK MODE - Obsidian Purple & Neon Accents) === */
+  --background: oklch(0.12 0.02 290);          /* Nền đen ánh tím cực sâu (#09070F) */
+  --foreground: oklch(0.97 0.008 290);
+
+  --card: oklch(0.16 0.028 290);               /* Bề mặt Card nổi nhẹ lên khỏi nền */
+  --card-foreground: oklch(0.97 0.008 290);
+
+  --popover: oklch(0.15 0.026 290);
+  --popover-foreground: oklch(0.97 0.008 290);
+
+  /* Primary: Sáng hơn ở Dark Mode để nổi bật độ tương phản */
+  --primary: oklch(0.66 0.23 292);             /* Neon Violet (#8B5CF6 -> #A855F7) */
+  --primary-foreground: oklch(0.12 0.02 290);
+
+  --secondary: oklch(0.22 0.035 290);
+  --secondary-foreground: oklch(0.97 0.008 290);
+
+  --muted: oklch(0.20 0.03 290);
+  --muted-foreground: oklch(0.68 0.025 290);
+
+  /* Accent: Pha chút sắc Cyan/Violet khi hover item */
+  --accent: oklch(0.24 0.045 292);
+  --accent-foreground: oklch(0.97 0.008 290);
+
+  --destructive: oklch(0.63 0.22 25);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  /* Viền mảnh bán trong suốt tạo hiệu ứng sắc nét kiểu Linear */
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.66 0.23 292);
+
+  /* Charts Dark Mode */
+  --chart-1: oklch(0.66 0.23 292);             /* Neon Violet */
+  --chart-2: oklch(0.74 0.15 225);             /* Cyber Cyan */
+  --chart-3: oklch(0.74 0.17 160);             /* Emerald */
+  --chart-4: oklch(0.80 0.16 80);              /* Amber */
+  --chart-5: oklch(0.68 0.21 15);              /* Rose */
+
+  /* Sidebar Dark Mode */
+  --sidebar: oklch(0.14 0.024 290);
+  --sidebar-foreground: oklch(0.97 0.008 290);
+  --sidebar-primary: oklch(0.66 0.23 292);
+  --sidebar-primary-foreground: oklch(0.12 0.02 290);
+  --sidebar-accent: oklch(0.22 0.04 292);
+  --sidebar-accent-foreground: oklch(0.97 0.008 290);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.66 0.23 292);
+
+  /* === POVIXA EXTENDED TOKENS (DARK MODE) === */
+  --success: oklch(0.72 0.18 155);
+  --success-foreground: oklch(0.12 0.02 155);
+  --warning: oklch(0.80 0.16 78);
+  --warning-foreground: oklch(0.14 0.02 78);
+  --info: oklch(0.74 0.15 225);
+  --info-foreground: oklch(0.12 0.02 225);
+
+  --surface-glass: oklch(0.16 0.028 290 / 0.65);
+  --border-glow: oklch(0.66 0.23 292 / 0.45);
+  --glow-primary: oklch(0.66 0.23 292 / 0.25);
+}
+
+/* === BRIDGE CHO TAILWIND CSS V4 (Dùng chung cho cả React & Svelte) === */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Povixa Extended Utilities */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-surface-glass: var(--surface-glass);
+  --color-border-glow: var(--border-glow);
+
+  /* Radius Scale tự động tính từ --radius gốc (0.625rem = 10px) */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/25 selection:text-primary;
+  }
 }
