@@ -5,7 +5,11 @@
  *
  * CHẠY ĐƯỢC ở cả 3 runtime: Edge (proxy), Node (server.ts), Browser (client.ts).
  */
-export function cookieDomain(): string | undefined {
+export function cookieDomain(host?: string | null): string | undefined {
+  if (host) {
+    const cleanHost = host.split(":")[0];
+    return cleanHost.endsWith("povixa.cloud") ? ".povixa.cloud" : undefined;
+  }
   if (typeof window === "undefined") {
     // server / proxy (Edge): không có window -> suy từ env
     const site = process.env.NEXT_PUBLIC_SITE_URL || "";

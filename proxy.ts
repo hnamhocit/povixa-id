@@ -1,27 +1,39 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { cookieDomain } from "@/lib/supabase/domains";
+import { safeReturnTo } from "@/lib/redirect";
 
 const PUBLIC = ["/login", "/terms", "/privacy"]; // mọi thứ KHÁC (kể cả "/") cần login
 
 export default async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+
+  const host =
+    request.headers.get("x-forwarded-host") ||
+    request.headers.get("host") ||
+    request.nextUrl.hostname;
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseKey,
     {
       cookieOptions: {
-        domain: cookieDomain(),
+        domain: cookieDomain(host),
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production", // ← đừng hardcode true
       },
       cookies: {
         getAll: () => request.cookies.getAll(),
         setAll: (c) => {
-          c.forEach(({ name, value }) => request.cookies.set(name, value));
+          c.forEach(({ name, value }) => {
+            request.cookies.set(name, value);
+          });
           response = NextResponse.next({ request });
-          c.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+          c.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options);
+          });
         },
       },
     }
@@ -39,8 +51,17 @@ export default async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // (B) đã login mà còn đứng ở /login → về "/", CLEAR query (anti-loop)
+  // (B) đã login mà còn đứng ở /login:
+  // - Nếu có redirect_url hợp lệ (từ app con hoặc internal path) → redirect ngay về app con
+  // - Nếu không có → về "/", CLEAR query (anti-loop)
   if (pathname === "/login" && user) {
+    const returnTo = safeReturnTo(request.nextUrl.searchParams.get("redirect_url"));
+    if (returnTo) {
+      const destination = returnTo.startsWith("/")
+        ? new URL(returnTo, request.url).toString()
+        : returnTo;
+      return NextResponse.redirect(destination);
+    }
     const url = request.nextUrl.clone();
     url.pathname = "/";
     url.search = ""; // ← clear, không carry redirect_url cũ

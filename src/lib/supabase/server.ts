@@ -1,22 +1,35 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import { cookieDomain } from "./domains";
 
 export async function createClient() {
   const cookieStore = await cookies();
+
+  let host: string | null = null;
+  try {
+    const headerList = await headers();
+    host = headerList.get("x-forwarded-host") || headerList.get("host");
+  } catch {
+    // Không có trong request context tĩnh
+  }
+
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
     {
-      cookieOptions: {                              // ← thêm block này
-        domain: cookieDomain(),
+      cookieOptions: {
+        domain: cookieDomain(host),
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production",
       },
       cookies: {
         getAll: () => cookieStore.getAll(),
         setAll: (c) => {
-          try { c.forEach(({ name, value, options }) => cookieStore.set(name, value, options)); } catch { }
+          try {
+            c.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options);
+            });
+          } catch {}
         },
       },
     }
