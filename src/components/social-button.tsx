@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useAuthStore, type Provider } from "@/stores/auth.store";
 import { signInWithOAuth } from "@/lib/auth-actions";
 import { safeReturnTo } from "@/lib/redirect";
 import { cn } from "@/lib/utils";
+import { type Provider, useAuthStore } from "@/stores/auth.store";
 
 interface SocialButtonProps {
   provider: Provider;
@@ -13,7 +13,12 @@ interface SocialButtonProps {
   className?: string;
 }
 
-export function SocialButton({ provider, label, icon, className }: SocialButtonProps) {
+export function SocialButton({
+  provider,
+  label,
+  icon,
+  className,
+}: SocialButtonProps) {
   const { isLoading, startLoading, stopLoading, setError } = useAuthStore();
   const isThisLoading = isLoading === provider;
   const isAnyLoading = isLoading !== null;
@@ -23,13 +28,17 @@ export function SocialButton({ provider, label, icon, className }: SocialButtonP
     startLoading(provider);
     try {
       // đọc lúc-tương-tác, KHÔNG phải lúc-render → không chạm runtime data của Next
-      const raw = new URLSearchParams(window.location.search).get("redirect_url");
+      const raw = new URLSearchParams(window.location.search).get(
+        "redirect_url",
+      );
       const returnTo = safeReturnTo(raw); // null → action sẽ omit, callback fallback "/"
       await signInWithOAuth(provider, returnTo ?? undefined);
     } catch (err) {
       console.error(`OAuth ${provider} failed:`, err);
       stopLoading();
-      setError(err instanceof Error ? err.message : "Đã xảy ra lỗi khi đăng nhập.");
+      setError(
+        err instanceof Error ? err.message : "Đã xảy ra lỗi khi đăng nhập.",
+      );
     }
   };
 
@@ -41,7 +50,7 @@ export function SocialButton({ provider, label, icon, className }: SocialButtonP
       whileTap={{ scale: 0.98 }}
       className={cn(
         "group relative flex h-11 w-full items-center justify-center gap-3 rounded-xl border border-border bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-all hover:bg-accent hover:text-accent-foreground disabled:cursor-not-allowed disabled:opacity-50",
-        className
+        className,
       )}
     >
       <span className="flex h-4 w-4 items-center justify-center">{icon}</span>

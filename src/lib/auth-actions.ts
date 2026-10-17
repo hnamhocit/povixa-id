@@ -1,10 +1,10 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import { safeReturnTo } from "@/lib/redirect";
+import { createClient } from "@/lib/supabase/server";
 
 type Provider = "github" | "google" | "facebook";
 
@@ -18,14 +18,19 @@ export async function signInWithOAuth(provider: Provider, returnTo?: string) {
     if (host) {
       const proto =
         headerList.get("x-forwarded-proto") ||
-        (host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https");
+        (host.includes("localhost") || host.includes("127.0.0.1")
+          ? "http"
+          : "https");
       detectedOrigin = `${proto}://${host}`;
     }
   } catch {
     // fallback nếu không có header context
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || detectedOrigin || "http://localhost:3000";
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    detectedOrigin ||
+    "http://localhost:3000";
 
   const safe = safeReturnTo(returnTo); // sanitize lần giữa (client có thể bị sửa)
   const cb = new URL(`${siteUrl}/auth/callback`);

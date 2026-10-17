@@ -37,7 +37,7 @@
   /* Charts: Phổ màu từ Violet -> Cyan -> Emerald -> Amber -> Rose */
   --chart-1: oklch(0.55 0.24 292);
   --chart-2: oklch(0.68 0.16 230);
-  --chart-3: oklch(0.70 0.17 165);
+  --chart-3: oklch(0.7 0.17 165);
   --chart-4: oklch(0.78 0.16 80);
   --chart-5: oklch(0.62 0.22 15);
 
@@ -68,23 +68,23 @@
 
 .dark {
   /* === SHADCN CORE TOKENS (DARK MODE - Obsidian Purple & Neon Accents) === */
-  --background: oklch(0.12 0.02 290);          /* Nền đen ánh tím cực sâu (#09070F) */
+  --background: oklch(0.12 0.02 290); /* Nền đen ánh tím cực sâu (#09070F) */
   --foreground: oklch(0.97 0.008 290);
 
-  --card: oklch(0.16 0.028 290);               /* Bề mặt Card nổi nhẹ lên khỏi nền */
+  --card: oklch(0.16 0.028 290); /* Bề mặt Card nổi nhẹ lên khỏi nền */
   --card-foreground: oklch(0.97 0.008 290);
 
   --popover: oklch(0.15 0.026 290);
   --popover-foreground: oklch(0.97 0.008 290);
 
   /* Primary: Sáng hơn ở Dark Mode để nổi bật độ tương phản */
-  --primary: oklch(0.66 0.23 292);             /* Neon Violet (#8B5CF6 -> #A855F7) */
+  --primary: oklch(0.66 0.23 292); /* Neon Violet (#8B5CF6 -> #A855F7) */
   --primary-foreground: oklch(0.12 0.02 290);
 
   --secondary: oklch(0.22 0.035 290);
   --secondary-foreground: oklch(0.97 0.008 290);
 
-  --muted: oklch(0.20 0.03 290);
+  --muted: oklch(0.2 0.03 290);
   --muted-foreground: oklch(0.68 0.025 290);
 
   /* Accent: Pha chút sắc Cyan/Violet khi hover item */
@@ -100,11 +100,11 @@
   --ring: oklch(0.66 0.23 292);
 
   /* Charts Dark Mode */
-  --chart-1: oklch(0.66 0.23 292);             /* Neon Violet */
-  --chart-2: oklch(0.74 0.15 225);             /* Cyber Cyan */
-  --chart-3: oklch(0.74 0.17 160);             /* Emerald */
-  --chart-4: oklch(0.80 0.16 80);              /* Amber */
-  --chart-5: oklch(0.68 0.21 15);              /* Rose */
+  --chart-1: oklch(0.66 0.23 292); /* Neon Violet */
+  --chart-2: oklch(0.74 0.15 225); /* Cyber Cyan */
+  --chart-3: oklch(0.74 0.17 160); /* Emerald */
+  --chart-4: oklch(0.8 0.16 80); /* Amber */
+  --chart-5: oklch(0.68 0.21 15); /* Rose */
 
   /* Sidebar Dark Mode */
   --sidebar: oklch(0.14 0.024 290);
@@ -119,7 +119,7 @@
   /* === POVIXA EXTENDED TOKENS (DARK MODE) === */
   --success: oklch(0.72 0.18 155);
   --success-foreground: oklch(0.12 0.02 155);
-  --warning: oklch(0.80 0.16 78);
+  --warning: oklch(0.8 0.16 78);
   --warning-foreground: oklch(0.14 0.02 78);
   --info: oklch(0.74 0.15 225);
   --info-foreground: oklch(0.12 0.02 225);
@@ -182,7 +182,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
-
 }
 
 @layer base {

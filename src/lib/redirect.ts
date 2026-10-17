@@ -12,12 +12,20 @@ export function safeReturnTo(raw: string | null | undefined): string | null {
   // absolute URL CÙNG parent (app con subdomain)
   try {
     const u = new URL(raw);
-    if (process.env.NODE_ENV === "production" && u.protocol !== "https:") return null;
+    if (process.env.NODE_ENV === "production" && u.protocol !== "https:")
+      return null;
     if (u.protocol !== "https:" && u.protocol !== "http:") return null;
     const isLocalDev =
       process.env.NODE_ENV !== "production" &&
       (u.hostname === "localhost" || u.hostname === "127.0.0.1");
-    if (!(u.hostname === "povixa.cloud" || u.hostname.endsWith(PARENT) || isLocalDev)) return null; // endsWith có dấu chấm → chặn evilpovixa.cloud
+    if (
+      !(
+        u.hostname === "povixa.cloud" ||
+        u.hostname.endsWith(PARENT) ||
+        isLocalDev
+      )
+    )
+      return null; // endsWith có dấu chấm → chặn evilpovixa.cloud
     if (u.username || u.password) return null;
     return u.href;
   } catch {

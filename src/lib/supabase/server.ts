@@ -1,5 +1,5 @@
-import { cookies, headers } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { cookies, headers } from "next/headers";
 import { cookieDomain } from "./domains";
 
 export async function createClient() {
@@ -32,6 +32,6 @@ export async function createClient() {
           } catch {}
         },
       },
-    }
+    },
   );
 }
